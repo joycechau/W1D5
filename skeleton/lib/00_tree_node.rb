@@ -9,7 +9,10 @@ class PolyTreeNode
   end
 
   def parent=(other)
-    other.children.push(self) unless (other.nil? || other.children.include?(self) )
+    if @parent
+      @parent.children.delete(self)
+    end
+    other.children.push(self) unless (other.nil?)
     @parent = other
   end
 end
