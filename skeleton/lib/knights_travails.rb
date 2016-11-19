@@ -53,12 +53,29 @@ class KnightPathFinder
     tree
   end
 
+  def find_path(end_pos)
+    root = @move_tree.first
+    target_node = root.dfs(end_pos)
+    trace_path_back(target_node)
+  end
+
+  def trace_path_back(node)
+    path = [node.value]
+    until node.parent.nil?
+      node = node.parent
+      path.unshift(node.value)
+    end
+
+    path
+  end
+
 end
 
 
 if __FILE__ == $PROGRAM_NAME
   knight = KnightPathFinder.new([0,0])
-  p knight.move_tree.map {|tree| tree.value}
+  p knight.find_path([7, 6])
+  p knight.find_path([6, 2])
 
   # puts knight.visited_positions
   # p knight.start_pos
